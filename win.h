@@ -27,7 +27,7 @@ public:
     Win(QWidget *parent = nullptr); // конструктор
 
 public slots:
-    void begin(); // метод начальной настройки интерфейса
+    void begin();  // метод начальной настройки интерфейса
     void calc(); // метод реализации вычислений
 };
 

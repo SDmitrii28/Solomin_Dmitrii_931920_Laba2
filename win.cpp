@@ -3,19 +3,20 @@
 Win::Win(QWidget *parent)
     : QWidget(parent)
 {
+    //Рисунок 2.7 – Схема компоновки интерфейса приложения
     setWindowTitle("Возведение в квадрат");
 
-    frame = new QFrame(this);
+    frame = new QFrame(this);// выделяем память под рамку
     frame->setFrameShadow(QFrame::Raised);
     frame->setFrameShape(QFrame::Panel);
 
-    inputLabel = new QLabel("Введите число:", this);
-    inputEdit = new QLineEdit("", this);
-    outputLabel = new QLabel("Результат:", this);
-    outputEdit = new QLineEdit("", this);
-    nextButton = new QPushButton("Следующее", this);
-    exitButton = new QPushButton("Выход", this);
-
+    inputLabel = new QLabel("Введите число:", this);//сообщение где надо ввести число
+    inputEdit = new QLineEdit("", this);//место где вводим число
+    outputLabel = new QLabel("Результат:", this);//сообщение результата
+    outputEdit = new QLineEdit("", this);//окно с результатом
+    nextButton = new QPushButton("Следующее", this);//кнопка перехода к следующему вычислению
+    exitButton = new QPushButton("Выход", this);//кнопка выхода
+    //выделяем память под элементы интерфейса
     QVBoxLayout *vLayout1 = new QVBoxLayout(frame);
     vLayout1->addWidget(inputLabel);
     vLayout1->addWidget(inputEdit);
@@ -34,21 +35,21 @@ Win::Win(QWidget *parent)
 
     begin();
 
-    connect(exitButton, &QPushButton::clicked, this, &Win::close);
-    connect(nextButton, &QPushButton::clicked, this, &Win::begin);
-    connect(inputEdit, &QLineEdit::returnPressed, this, &Win::calc);
+    connect(exitButton, &QPushButton::clicked, this, &Win::close);//сигнал закрытия интерфейса
+    connect(nextButton, &QPushButton::clicked, this, &Win::begin);// сигнал нажатия на кнопку (следующее)
+    connect(inputEdit, &QLineEdit::returnPressed, this, &Win::calc);//returnPressed()– сигнал нажатия клавиши Enter
 }
 
 void Win::begin()
 {
-    inputEdit->clear();
-    nextButton->setEnabled(false);
-    nextButton->setDefault(false);
-    inputEdit->setEnabled(true);
-    outputLabel->setVisible(false);
-    outputEdit->setVisible(false);
-    outputEdit->setEnabled(false);
-    inputEdit->setFocus();
+    inputEdit->clear();//очистка полей с предыдущим вычислением
+    nextButton->setEnabled(false);//делаем кнопку неактивной
+    nextButton->setDefault(false);//видимость
+    inputEdit->setEnabled(true);//делаем поле ввода не активным
+    outputLabel->setVisible(false);//видимость
+    outputEdit->setVisible(false);//видимость
+    outputEdit->setEnabled(false);//делаем поле вывода не активным
+    inputEdit->setFocus();//Передает фокус ввода с клавиатуры этому виджету
 }
 
 void Win::calc()
@@ -65,16 +66,17 @@ void Win::calc()
 
         str.setNum(r);
 
-        outputEdit->setText(str);
-        inputEdit->setEnabled(false);
-        outputLabel->setVisible(true);
-        outputEdit->setVisible(true);
+        outputEdit->setText(str);//выводим результат
+        inputEdit->setEnabled(false);//делаем поле ввода неактивным
+        outputLabel->setVisible(true);//видимость
+        outputEdit->setVisible(true);//видимость
         nextButton->setDefault(true);
-        nextButton->setEnabled(true);
+        nextButton->setEnabled(true);//делаем кнопку(следующее) активной
         nextButton->setFocus();
     }
     else if (!str.isEmpty())
     {
+        //сообщение об ошибке
         QMessageBox msgBox(QMessageBox::Information, "Возведение в квадрат.", "Введено неверное значение.", QMessageBox::Ok);
         msgBox.exec();
     }
