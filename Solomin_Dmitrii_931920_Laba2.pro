@@ -10,10 +10,12 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    win.cpp
+    win.cpp \
+    win8.cpp
 
 HEADERS += \
-    win.h
+    win.h \
+    win8.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
